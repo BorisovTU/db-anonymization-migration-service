@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <changeSet id="001-create-customer-profiles" author="Борисов Тимофей Юрьевич">
+        <createTable tableName="customer_profiles">
+            <column name="id" type="UUID">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="full_name" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="phone_number" type="VARCHAR(64)"/>
+            <column name="email" type="VARCHAR(255)"/>
+            <column name="created_at" type="TIMESTAMP WITHOUT TIME ZONE" defaultValueComputed="NOW()">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+        <createIndex tableName="customer_profiles" indexName="idx_customer_email">
+            <column name="email"/>
+        </createIndex>
+    </changeSet>
+
+    <changeSet id="002-create-customer-attachments" author="Борисов Тимофей Юрьевич">
+        <createTable tableName="customer_attachments">
+            <column name="id" type="BIGINT">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="customer_id" type="UUID">
+                <constraints referencedTableName="customer_profiles"
+                             referencedColumnNames="id"
+                             foreignKeyName="fk_attachment_customer"/>
+            </column>
+            <column name="file_storage_path" type="VARCHAR(1024)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="mime_type" type="VARCHAR(128)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="uploaded_at" type="TIMESTAMP WITHOUT TIME ZONE" defaultValueComputed="NOW()">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+        <createIndex tableName="customer_attachments" indexName="idx_attachment_cust_id">
+            <column name="customer_id"/>
+        </createIndex>
+    </changeSet>
+
+</databaseChangeLog>

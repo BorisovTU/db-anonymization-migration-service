@@ -1,0 +1,6 @@
+id,customer_id,file_storage_path,mime_type,uploaded_at
+1001,a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11,/var/storage/contracts/contract_2023_ivanov.pdf,application/pdf,2024-01-15 10:05:00
+1002,a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11,/var/storage/photos/avatar_user_11.jpg,image/jpeg,2024-01-15 10:06:00
+1003,b1eebc99-9c0b-4ef8-bb6d-6bb9bd380a22,/var/storage/dead_links/missing_doc_99.docx,application/vnd.openxmlformats-officedocument.wordprocessingml.document,2024-02-10 11:35:00
+1004,c2eebc99-9c0b-4ef8-bb6d-6bb9bd380a33,/var/storage/contracts/contract_2023_ivanov.pdf,application/pdf,2024-03-01 09:20:00
+1005,e4eebc99-9c0b-4ef8-bb6d-6bb9bd380a55,/var/storage/scans/passport_scan_classified.png,image/png,2024-04-05 16:50:00

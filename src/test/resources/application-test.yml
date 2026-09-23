@@ -1,0 +1,59 @@
+spring:
+  application:
+    name: db-anonymization-migration-test
+  liquibase:
+    enabled: true
+    change-log: classpath:db/changelog/db.changelog-master.xml
+
+datasource:
+  source:
+    jdbc-url: ${SOURCE_DB_URL:jdbc:postgresql://localhost:5432/source_db}
+    username: ${SOURCE_DB_USER:postgres}
+    password: ${SOURCE_DB_PASS:postgres}
+    driver-class-name: org.postgresql.Driver
+    maximum-pool-size: 5
+    minimum-idle: 2
+    connection-timeout: 10000
+    read-only: true
+  target:
+    jdbc-url: ${TARGET_DB_URL:jdbc:postgresql://localhost:5433/target_db?reWriteBatchedInserts=true&stringtype=unspecified}
+    username: ${TARGET_DB_USER:postgres}
+    password: ${TARGET_DB_PASS:postgres}
+    driver-class-name: org.postgresql.Driver
+    maximum-pool-size: 5
+    minimum-idle: 2
+    connection-timeout: 10000
+
+anonymization:
+  salt: test-crypto-secret-salt-152fz
+  batch-size: 2
+  concurrency-limit: 2
+  email-domain: test-anonymized.local
+  tables:
+    - table-name: customer_profiles
+      id-column: id
+      id-type: UUID
+      columns:
+        - column-name: full_name
+          strategy: FULL_NAME
+        - column-name: phone_number
+          strategy: PHONE
+        - column-name: email
+          strategy: EMAIL
+    - table-name: customer_attachments
+      id-column: id
+      id-type: BIGINT
+      columns:
+        - column-name: customer_id
+          strategy: AS_IS
+        - column-name: file_storage_path
+          strategy: FILE_PATH
+        - column-name: mime_type
+          strategy: AS_IS
+
+logging:
+  level:
+    root: INFO
+    ru.botu.db.anonym.migration: DEBUG
+    org.testcontainers: INFO
+    liquibase: INFO
