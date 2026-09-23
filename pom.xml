@@ -134,6 +134,9 @@
                 <configuration>
                     <!-- argLine заполняется автоматически плагином jacoco prepare-agent -->
                     <argLine>${argLine} -XX:+EnableDynamicAgentLoading</argLine>
+                    <environmentVariables>
+                        <DOCKER_API_VERSION>1.44</DOCKER_API_VERSION>
+                    </environmentVariables>
                 </configuration>
             </plugin>
 
